@@ -1,0 +1,384 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+
+<script src="/shared/jquery.min.js"></script>
+
+    
+    
+<script>
+
+
+window.app = {
+    timestamp: parseInt((new Date()).getTime() / 1000),
+    jq: jQuery,
+    formAction: window.location.href,
+    leadToken: '6488506fa2a703.10481289',
+    offers: {"31850":{"id":31850,"country":{"code":"BY","name":"\u0411\u0435\u043b\u0430\u0440\u0443\u0441\u044c"},"price":"0","price2":"9","currency":{"code":"BYR","name":"BYN"},"discount":"","delivery_price":"","link":"","product_sku":"","prepaid_info_html":""},"22083":{"id":22083,"country":{"code":"RU","name":"\u0420\u043e\u0441\u0441\u0438\u044f"},"price":"0","price2":"2990","currency":{"code":"RUB","name":"\u0440\u0443\u0431"},"discount":"","delivery_price":"","link":"","product_sku":"","prepaid_info_html":""}},
+    currentOffer: {"id":22083,"country":{"code":"RU","name":"\u0420\u043e\u0441\u0441\u0438\u044f"},"price":"0","price2":"2990","currency":{"code":"RUB","name":"\u0440\u0443\u0431"},"discount":"","delivery_price":"","link":"","product_sku":"","prepaid_info_html":""},
+    allowedCountries: ["BY","RU"],
+    _setOfferId: false,
+    streamHid: '',
+    showcaseUrl: '',
+    disablePhoneMask: Boolean(),
+    
+    setOffer: function (offerId) {
+        if (offerId == this._setOfferId) {
+            return ;
+        }
+        this._setOfferId = offerId;
+        if (offerId) {
+            var offer = app.offers[offerId];
+            var previousOffer = app.currentOffer;
+            app.currentOffer = offer;
+            var event = this.jq.Event("offerchange");
+            event.previousOffer = previousOffer;
+            event.currentOffer = app.currentOffer;
+            this.jq(document).trigger(event);
+            this.updatePage(offer);
+        } else {
+            $('input[name=country]').val('');
+        }
+    },
+    
+    updatePage: function(offer) {
+        $('x-newprice').html(offer.price);
+        $('x-oldprice').html(offer.price2);
+        $('x-currency').html(offer.currency.name);
+        $('input[name=offer], select[name=offer]').val(offer.id);
+        $('input[name=country]').val(offer.country.code);
+    },
+
+    blockForm: function() {
+        // Блокируем кнопки при отправке формы
+        $('input[type=submit]', $(this)).prop( 'disabled', true ).attr( 'disabled', true );
+        $('button', $(this)).prop( 'disabled', true ).attr( 'disabled', true );
+        app.incompleteOrder.lock = true;
+        clearTimeout(app.incompleteOrder.timer);
+    },
+
+    unblockForm: function() {
+        $('input[type=submit]', $(this)).prop( 'disabled', false ).attr( 'disabled', false );
+        $('button[type=submit]', $(this)).prop( 'disabled', false ).attr( 'disabled', false );
+        app.incompleteOrder.lock = false;
+        clearTimeout(app.incompleteOrder.timer);
+    }
+
+};
+
+
+</script>
+<!-- <script src="/shared/form.validate.js?12"></script> -->
+<!-- <script src="/shared/interPhoneCodes.js"></script> -->
+<!-- <script src="/shared/showcase.js?v=1"></script> -->
+<!-- <script src="/shared/form.incomplete.js?10"></script> -->
+<!-- <script src="/shared/main2.js?17"></script> -->
+
+
+
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta http-equiv="Cache-Control" content="no-cache">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>
+       التواصل مع طبيب  مختص للتخلص من  مشاكل البروستات </title>
+    <link rel="shortcut icon" type="image/png" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAAxlBMVEUAAAArnysroCsroCssoCwroCssoCwsoCwsnywroCsrnysroCsrnyssoCwroCssoCwsnywsoCwsnywroCssoCwsnywsnywsoCwrnyssnywroCssoCxuvW674Lvf8N82pDbB48H////J58mLyov+/v7H5cc0ozQtoC3N6M294b3p9enE5MQzozOs2azM6MwuoS5Nr03s9uzC48IyojIuoC6v26/8/fx0wHRKrUoxojGy3LL7/ftvvm8voS+13bX6/Ppuvm6437jzkwAxAAAAG3RSTlMABEyQsrJMRtpEaPz8aEb8/EQE2gRMspBMRAQCf9YPAAAArklEQVQYGQXBwU7CUBRF0X3evelrm2CrFQfO/P+/0oEDCg2iARR6XEsAkqQ1/gwIqJoA2OsMgl6jJGwfdUI8aJQAsI9a4in6EACI+BpLtBIAqKSmQzkgAMjMFCoTou2gr2quouTywkaqkroZcFlx2+5qvTUzmKls8S7fPnL4BMwS7S3L9+MU74Dvlx/R1UGKO2DP61mw8SAJ20edCPidrmnbXPo9APC6jcxongH+Afk4PNpkBUXoAAAAAElFTkSuQmCC">
+    <link rel="stylesheet" href="css/styleGG.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link media="all" href="css/main.css" type="text/css" rel="stylesheet">
+    <link media="all" href="css/index.css" type="text/css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <link rel="stylesheet" href="css/generator.css">
+    <link rel="stylesheet" href="css/spin.css">
+    <link rel="shortcut icon" href="images/about-icon1.png" type="image/x-icon">
+    <style>
+        #video1{
+            width: 540px;
+            height: 310px;
+        }
+        @media (max-width: 480px){
+            #video1{
+                width: 310px;
+                height: 230px;
+            }
+        }
+      .video-container {
+        position: relative;
+        padding-bottom: 56.25%;
+        height: 0;
+        width: 100%;
+      }
+
+      .video-container iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+      }
+                              
+    </style>
+     <script>
+      var ww = window.innerWidth;
+      if(ww <= 480){
+        viewport = document.querySelector("meta[name=viewport]");
+        viewport.setAttribute('content', 'width=401');
+      }
+      
+    </script>
+</head>
+
+<body cz-shortcut-listen="true">
+    <div class="main-desc">
+
+        <div class="main-desc__img">
+
+        </div>
+        <div class="main-desc__body">
+
+            <div class="main__title">
+                <p>المدونة مجانية </p>
+            </div>
+            <div class="main__name">
+                <p>إستشارة مجانية  </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="body">
+
+        <div class="about dec">
+            <div class="about__avatar">
+                <img src="images/about-ava.jpeg" alt>
+            </div>
+            <div class="about__name">
+                <p>دينيس بوتوف </p>
+            </div>
+            <div class="about__info">
+                <ul>
+                    <li>
+                        <p>الإستشارات الطبية عن بعد </p>
+                    </li>
+                    <li>
+                        <p>طبيب عام  <br>
+                            مهمته مساعدة الناس  <br>
+                            
+                        </p>
+                    </li>
+                    <li>
+
+                    </li>
+                    <li>
+
+                    </li>
+                    <li>
+
+                    </li>
+                </ul>
+                <img src alt>
+            </div>
+            <div class="about__footer">
+                <p>© صفحة رسمية 
+                    <span>"المدونة الطبية"</span>
+                </p>
+            </div>
+        </div>
+        <div class="content">
+            <div class="header">
+                <div class="header__body">
+                    <div class="header__name">
+                        <div class="header__avatar">
+                            <img src="images/about-ava.jpeg" alt>
+                        </div>
+                        <div class="header__desc">
+                            <p><span>دينيس بوتوف</span></p>
+                            <p>إستشارة مجانية</p>
+                        </div>
+                    </div>
+                    <div class="header__online">
+                        <p>متاح الأن</p>
+                    </div>
+                </div>
+            </div>
+            <div class="chat">
+                <div class="chat__time">
+                    <p>اليوم</p>
+                </div>
+                <div class="chat-content-list">
+
+                </div>
+
+                <button type="button" id="scroll_id" class="btn scroll-me hide" data-scroll="#down-box">
+                    <span class="container-circle">
+                        <span class="button-circle down"></span>
+                    </span>
+                </button>
+
+               
+<div id="form" class="iframe-form">
+    <div id="order" class="boxit">
+
+        <div class="features-wrapper">
+            <div class="wheel__notification" style="text-align: center;">
+                
+            </div>
+            <div class="spin-wrapper">
+                <p style="direction: rtl;"><b> إنتبه
+                    </b><br>
+                    للحصول على RHINO كل ما عليك هو الضغط على زر 
+                    SPIN للمشاركة في المسابقة للحصول على تخفيض يصل إلى 50% 
+                </p>
+                <!-- <p>  سعر RHINO قبل التخفيض : 11980 دينار جزائري</p> -->
+
+                <p style="
+                margin-top: 9px;
+                font-size: 10px;
+                color: red;
+        direction: rtl;
+                "> عند شرائك دورة RHINO</p> 
+                
+                <div class="wheel-wrapper">
+                    <div class="wheel">
+                        <img alt class="wheel-img" src="images/prizewheel.png">
+                        <div class="wheel-cursor">
+                            <img alt src="images/wheel-cursor.png">
+                            <span class="cursor-text">
+                                SPIN</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="order_block" style="text-align: center; display: none;">
+                <div class="order__afisha">
+                    <h2 class="order__title"> تهانينا </h2>
+                    <p class="accent2" style="direction: rtl; margin: 15px 0 25px 0; padding-bottom:0; font-size:1.5em;">انت ربحت جائزتنا الاولي و هي : تخفيض بنسبة 50% علي سعر RHINO</p>
+                    <div class="order__product">
+                        <span class="sale">-50%</span>
+                        <a href="">
+                            <img src="images/popup-item.png" />
+                        </a>
+                    </div>
+                    <div class="order__info">
+                        <div class="order__lead">التخفيض الخاص بك: </div>
+                        <div class="order__price old x_currency_old">DA 11998</div>
+                        <br />
+                        <div class="order__price new x_currency">DA 5999</div>
+                    </div>
+                    <p style="direction: rtl;">عند شرائك دورة RHINO </p>
+                </div>
+              
+                <form class="order__form orderForm x_order_form form_order" action="" method="post">
+                   
+
+                  
+                    <div class="order__form-row">
+                        <input class="wheel_input" type="text" name="client" placeholder="الإسم">
+                    </div>
+                    <div class="order__form-row">
+                        <input class="wheel_input" type="tel" name="phone" placeholder="رقم الهاتف">
+                    </div>
+                    <button class="btn btn--submit sub2" type="submit"> إتمام الطلب </button>
+                </form>
+            </div>
+            <div class="spin-result-wrapper" style="display: none;">
+                <div class="pop-up-window">
+                    <div class="close-popup"></div>
+                    <span class="pop-up-heading lt71">! مبروك  </span>
+                    <p style="direction: rtl;" class="ruletka-p pop-up-text lt72">لقد ربحت خصماً 50% علي سعر RHINO
+                    </p>
+                    <a href="#form" class="pop-up-button lt73"> موافق</a>
+                </div>
+            </div>
+            <br><br><br>
+        </div>
+
+    </div>
+</div>
+        
+</center>
+                    </div>
+                </div> 
+               
+                <div id="down-box"></div>
+
+            </div>
+        </div>
+
+    </div>
+    <div class="fireworks">
+        <div class="spin-result-wrapper">
+            <div class="pop-up-window">
+                <div class="close-popup"></div>
+                <span class="pop-up-heading lt161">تهانينا!</span>
+                <p class="ruletka-p pop-up-text lt162">ادخل إسمك و رقم هاتفك للحصول على RHINO 
+                    <br>
+                    <span style="color: red;"><span class="new_price"><x-newprice>5999</x-newprice><x-currency>DA</x-currency></span>!* </span>
+                    <br>
+                    <span class="pop-up-button lt163" data-scroll="#down-box">OK</span>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="demon_popup">
+        <div class="demon_overflow"></div>
+        <div class="demon_popup_body">
+            <span class="demon_close"></span>
+            <h4 class="demon_popup_title">هل انت في  <span class="country_name1">الجزائر</span>؟</h4>
+            <img class="product-img2" src="images/popup-item.png" alt="" style="width:300px">
+            <p>تستطيع الحصول على تخفيض يصل إلى 50%  </p>
+            <p>هذا التخفيض متاح حتى تاريخ : 
+                <script>
+                    d = new Date();
+                    p = new Date(d.getTime());
+                    monthA = "يناير,فبراير,مارس,ابريل,مايو,يونيو,يوليو,اغسطس,سبتمبر,اكتوبر,نوفمبر,ديسمبر".split(
+                        ",");
+                    document.write(p.getDate() + " " + monthA[p.getMonth()] + " " + p.getFullYear()) + " ";
+                </script>
+                تستطيع ان تحصل على المكمل الغذائي RHINO بتخفيض : <span class="new_price"
+                    style="font-size: 23px;">50% </span>!
+            </p>
+            <a href="#" class="to_form popup_btn">معرفة اكثر </a>
+        </div>
+    </div>
+
+    <script>
+        setTimeout(function () {
+            var flag = true;
+            $(window).mouseout(function (e) {
+                if (e.pageY - $(window).scrollTop() < 1 && flag == true) {
+                    $('.demon_popup').fadeIn(300);
+                    flag = false;
+                }
+            })
+        }, 000);
+
+        $('.demon_popup, .demon_close, .popup_btn').click(function () {
+            $('.demon_popup').fadeOut(100);
+        })
+
+        $('.demon_popup_body').click(function (e) {
+            e.stopPropagation();
+        });
+    </script>
+    <script>
+        const optionSelected = document.querySelector("option")
+        const newPrice = `<span class="new_price"><x-newprice>5999</x-newprice><x-currency>DA</x-currency></span>`;
+        const currencyPrice = `<span class="currency_price"></span>`;
+        // const discount = `<span class="discount">92%</span>`;
+    </script>
+    <script src="js/new.js"></script>
+    <!-- <script src="js/spinnerJS.js"></script> -->
+     <script src="js/spin.js"></script> 
+    <link rel="stylesheet" href="css/styleG.css" type="text/css">
+
+
+<style>
+    .form-control {display: block!important;}
+</style>
+</body>
+
+</html>
